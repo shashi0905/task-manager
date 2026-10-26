@@ -13,7 +13,7 @@ export class TaskService {
 
   private nextId = 1;
 
-    private tasks = signal<Task[]>([
+  tasks = signal<Task[]>([
         {
             id: this.nextId++,
             title: 'Task 1',

@@ -1,1 +1,38 @@
-<p>tasks works!</p>
+
+<h2>My Tasks</h2>
+
+<form (ngSubmit)="addTask()" #taskForm="ngForm">
+    <input
+            name="title"
+            [(ngModel)]="newTitle"
+            required
+            minlength="3"
+            placeholder="Enter a task"
+    />
+
+    <button type="submit" [disabled]="taskForm.invalid">
+        Add Task
+    </button>
+</form>
+
+<p>Total tasks: {{ taskService.tasks().length }}</p>
+
+<ul>
+    @for (task of taskService.tasks(); track task.id) {
+    <li>
+        <label>
+            <input
+                    type="checkbox"
+                    [checked]="task.completed"
+                    (change)="taskService.toggleTask(task.id)"
+            />
+            <span>{{ task.title }}</span>
+            @if (task.completed) {
+            <strong> — Completed</strong>
+            }
+        </label>
+    </li>
+    } @empty {
+    <li>No tasks yet. Add your first task!</li>
+    }
+</ul>
